@@ -30,6 +30,12 @@ Granted the same test application tenant-wide **application** (not delegated) Gr
 
 **Key finding:** Application permissions remove the human from the loop entirely — there's no user to phish or notice anomalous behavior, only a client secret standing between an attacker and tenant-wide data access.
 
+### 05 — [Over-Scoped Slack App & Post-Install Scope Creep]./05-slack-overscoped-app/)
+
+Installed a deliberately over-scoped, plausibly-named Slack app (“Expence Tracker”) with broad read access to channel history, the user directory, and shared files, approved with a single click by a workspace member. Uncovered a secondary finding along the way: Slack enforces scopes at the individual API-endpoint level, finer-grained than the consent screen suggests, and expanding an app’s permissions post-install requires only a lightweight “reinstall” re-approval rather than a fresh review. Verified impact live by calling the Slack Web API directly with the resulting bot token to enumerate every channel and retrieve real message history.
+
+Key finding: Scope-grant screens can understate real API-level access, and permission expansion after initial approval gets far less scrutiny than the original install — a quiet pathway for scope creep over an app’s lifetime.
+
 ---
 
 ## Methodology
